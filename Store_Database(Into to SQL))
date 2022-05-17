@@ -1,0 +1,12 @@
+CREATE TABLE bike_store(id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, price INTEGER , brand TEXT); 
+
+INSERT INTO bike_store VALUES
+(1,"Standard Bike", 17, 19.99, "Frimer"),
+(2,"Peg",5,15.99, "Frimer"),
+(3,"40inch Wheels", 5, 29.99, "Nine Wheels"),
+(4,"Wheel Repair kit", 11, 9.99, "N-stant-Repair"),
+(5,"Standard Seat", 7, 13.99, "Silco");
+
+
+SELECT * FROM bike_store ORDER BY price;
+SELECT SUM(quantity),SUM(price * quantity) FROM bike_store
