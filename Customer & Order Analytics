@@ -1,9 +1,30 @@
 #In this SQL, I'm querying a database with multiple tables in it to quantify statistics about customer and order data. 
 # DB used is BIT_DB
 #
+1.How many orders were placed in January?
+  SELECT COUNT(*) FROM JanSales;
+A: [9732]
+  
+2.How many of those orders were for an iPhone?
+  SELECT COUNT(*) FROM JanSales
+    WHERE Product = 'iPhone'; 
+A: [379]
 
-
-
-
-
-
+3.Select the customer account numbers for all the orders that were placed in February.
+  SELECT DISTINCT(acctnum) FROM FebSales
+     JOIN customers
+        ON FebSales.orderID = customers.order_id;
+        
+ 4.Which product was the cheapest one sold in January, and what was the price?
+  SELECT DISTINCT(product), price FROM JanSales
+    ORDER BY price LIMIT 1;
+  
+ 5. What is the total revenue for each product sold in January? (Revenue can be calculated using the number of products sold and the price of the products).
+  SELECT product , SUM(Quantity) * price As 'total revenue' FROM JanSales
+    GROUP BY product;
+ 
+ 6.Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+  SELECT product,SUM(quantity) AS 'Total Amount Sold', SUM(quantity) * price AS 'Total Revenue' FROM FebSales
+      WHERE location = '548 Lincoln St, Seattle, WA 98101'
+      GROUP BY product;
+ 
