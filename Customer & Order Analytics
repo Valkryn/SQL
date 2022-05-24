@@ -28,3 +28,9 @@ A: [379]
       WHERE location = '548 Lincoln St, Seattle, WA 98101'
       GROUP BY product;
  
+  7.List all the products sold in Los Angeles in February, and include how many of each were sold.
+      SELECT product ,SUM(quantity)
+        FROM FebSales
+        WHERE location LIKE '%Los Angeles%'
+        GROUP BY product
+        ORDER BY product ;
