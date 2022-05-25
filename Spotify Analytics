@@ -1,1 +1,13 @@
+#For this project, I downloaded Spotify data from Kaggle. //  https://www.kaggle.com/datasets/equinxx/spotify-top-50-songs-in-2021?select=spotify_top50_2021.csv  //
+# And performed analytics on the data using SQL.
 
+  1. Top 10 songs.
+    SELECT artist_name, track_name FROM Spotifydata
+      ORDER BY popularity desc
+      LIMIT 10;
+
+   2. Most popular artist by how many of their songs are in the top 50
+    SELECT artist_name, COUNT(artist_name) FROM Spotifydata
+      GROUP BY artist_name
+      ORDER BY COUNT(artist_name) desc;
+   
