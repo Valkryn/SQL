@@ -34,3 +34,23 @@ A: [379]
         WHERE location LIKE '%Los Angeles%'
         GROUP BY product
         ORDER BY product ;
+        
+  8.Which locations in New York received at least 3 orders in January, and how many orders did they each receive?
+    SELECT location,COUNT(orderID) FROM JanSales
+      WHERE location LIKE '%NY%' 
+      GROUP BY location
+      HAVING COUNT(orderID) >= 3;
+  
+  9.How many of each type of headphone were sold in February?
+    SELECT product, SUM(quantity) AS 'Quantity Sold' FROM FebSales 
+      WHERE product LIKE '%headphone%'
+      GROUP BY product ;
+      
+  10.Which product brought in the most revenue in January and how much revenue did it bring in total?
+    SELECT product,SUM(quantity * price) AS 'Total Revenue' FROM JanSales
+      GROUP BY product
+      ORDER BY SUM(quantity * price) desc
+      LIMIT 1 ;
+
+  
+   
