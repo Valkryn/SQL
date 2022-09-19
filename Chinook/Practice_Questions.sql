@@ -44,11 +44,40 @@ SELECT SUM(total) AS "Total Sales for 2009" FROM invoices
     WHERE invoicedate BETWEEN '2009-01-01' AND '2009-12-31';
 
 -- Write a query that includes the purchased track name with each invoice line item.
+SELECT i.invoiceid , t.name , quantity  FROM invoices AS i
+    INNER JOIN invoice_items AS ii
+        ON i.invoiceid = ii.invoiceid
+    INNER JOIN tracks AS t
+        ON ii.trackid = t.trackid
 
 -- Write a query that includes the purchased track name AND artist name with each invoice line item.
+SELECT i.invoiceid , t.name , t.composer  , quantity   FROM invoices AS i
+    INNER JOIN invoice_items AS ii
+        ON i.invoiceid = ii.invoiceid
+    INNER JOIN tracks AS t
+        ON ii.trackid = t.trackid
+
 
 -- Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
+SELECT t.name , t.composer , a.title , m.name AS "File Type" , g.name AS "Genre" FROM tracks AS t
+    INNER JOIN albums AS a USING (albumid)
+    INNER JOIN media_types AS m USING (mediatypeid)
+    INNER JOIN genres AS g USING (genreid)
+
 
 -- Show the total sales made by each sales agent.
-
+SELECT e.firstname , e.lastname , ROUND(SUM(total),2) AS "Total sales" FROM invoices AS i
+    INNER JOIN customers AS c USING (customerid)
+    INNER JOIN employees AS e
+        ON c.supportrepid = e.employeeid
+    GROUP BY e.firstname , e.lastname
 -- Which sales agent made the most in sales in 2009?
+SELECT e.firstname , e.lastname , ROUND(SUM(i.total),2) FROM invoices AS i
+    INNER JOIN customers AS c
+        ON i.customerid = c.customerid
+    INNER JOIN employees AS e
+        ON c.supportrepid = e.employeeid
+    WHERE i.invoicedate LIKE '2009%' AND title = 'Sales Support Agent'
+    GROUP BY e.firstname , e.lastname
+    ORDER BY ROUND(SUM(i.total),2) DESC
+    LIMIT 1
